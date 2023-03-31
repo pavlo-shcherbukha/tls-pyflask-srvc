@@ -17,7 +17,7 @@ HTTPS_ENABLED = True
 VERIFY_USER = True
 
 API_HOST = "0.0.0.0"
-API_PORT = 5000
+API_PORT = 8080
 API_CRT = "./sh_app/tlscert/server-crt.pem"
 API_KEY = "./sh_app/tlscert/server-key.pem"
 API_CA_T = "./sh_app/tlscert/server-crt.pem"
