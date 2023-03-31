@@ -104,15 +104,15 @@ objects:
             #- name: APP_DEBUG
             #  value: 'DEBUG_BRK'  
             - name: GUNICORN_CMD_ARGS
-              value: --workers=1 --worker-connections=2000  --bind=0.0.0.0:8080 --access-logfile=-
+              value: --workers=1 --worker-connections=2000  --bind=0.0.0.0:8080 --access-logfile=- --name=wsgi
             #- name: FLASK_APP
             #  value: ./wsgi.py
             #- name: APP_MODULE
             #  value: ./wsgi.py
             - name: FLASK_APP
               value: sh_app.webapp
-            - name: APP_MODULE
-              value: ./wsgi.py
+            #- name: APP_MODULE
+            #  value: ./wsgi.py
             - name: FLASK_DEBUG
               value: '0'
             - name: FLASK_ENV
