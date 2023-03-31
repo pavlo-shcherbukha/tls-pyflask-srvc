@@ -23,7 +23,8 @@ RUN cat /opt/app-root/etc/xapp.sh
 RUN echo "=========********************=========="
 
 # Put self signed CA into trust store
-RUN cp /opt/app-root/src/sh_app/tlscert/ca-crt.pem /usr/share/pki/ca-trust-source/anchors/
+RUN cp /tmp/src/sh_app/tlscert/ca-crt.pem /usr/share/pki/ca-trust-source/anchors/
+RUN ls /usr/share/pki/ca-trust-source/anchors/
 RUN update-ca-trust
 
 USER 1001
