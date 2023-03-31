@@ -4,5 +4,6 @@ requests
 datetime
 ptvsd 
 debugpy
-ssl
+pyopenssl
 # flask-talisman
+flask_sslify
