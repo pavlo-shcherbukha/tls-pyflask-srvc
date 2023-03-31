@@ -104,7 +104,7 @@ objects:
             #- name: APP_DEBUG
             #  value: 'DEBUG_BRK'  
             - name: GUNICORN_CMD_ARGS
-              value: --workers=1 --worker-connections=2000  --bind=0.0.0.0:8080 --access-logfile=- --name=wsgi
+              value: --workers=1 --worker-connections=2000  --bind=0.0.0.0:8080 --access-logfile=- --name=wsgi --keyfile /opt/app-root/src/sh_app/tlscert/server-key.pem --certfile /opt/app-root/src/sh_app/tlscert/server-crt.pem
             #- name: FLASK_APP
             #  value: ./wsgi.py
             #- name: APP_MODULE
