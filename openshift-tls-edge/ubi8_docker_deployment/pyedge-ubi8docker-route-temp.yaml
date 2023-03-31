@@ -1,0 +1,187 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+apiVersion: v1
+metadata:
+  name: py-ubi8docker-route-template
+  annotations:
+    openshift.io/display-name: "py-ubi8docker-route-template"
+    description: >-
+      The template for deployment Python flask service using ubi8docker
+      approach with tls-edge termination
+
+    tags: "python flask"
+    iconClass: fas fa-tools
+    openshift.io/provider-display-name: "Pavlo Shcherbukha" 
+    openshift.io/documentation-url: "https://github.com/pavlo-shcherbukha/tls-pyflask-srvc.git" 
+    openshift.io/support-url: "https://github.com/pavlo-shcherbukha/tls-pyflask-srvc.git" 
+objects:
+  - apiVersion: route.openshift.io/v1
+    kind: Route
+    metadata:
+      labels:
+        app: "${APP_NAME}"
+        app.kubernetes.io/part-of: "${APP_NAME}"
+      name: "${ROUTENAME}"
+    spec:
+      host: "${HOSTNAME}"
+      port:
+        targetPort: ${{PORTNUMBER}}
+      tls:
+        termination: edge
+        certificate: |
+          -----BEGIN CERTIFICATE-----
+          MIIF4DCCA8igAwIBAgIUbnz7mwxjZ17NEfFrFflny7KEMWUwDQYJKoZIhvcNAQEL
+          BQAwgacxCzAJBgNVBAYTAlVBMQ0wCwYDVQQIDARLeWl2MQ0wCwYDVQQHDARLeWl2
+          MRAwDgYDVQQKDAdzYW5kYm94MQ4wDAYDVQQLDAV0bHNDQTE0MDIGA1UEAwwrKi5h
+          cHBzLnNhbmRib3gtbTMuMTUzMC5wMS5vcGVuc2hpZnRhcHBzLmNvbTEiMCAGCSqG
+          SIb3DQEJARYTY2VydHNAZGV2ZWxvcGVyLmNvbTAeFw0yMzAzMzExOTMxMDNaFw0y
+          NTEyMjQxOTMxMDNaMIGrMQswCQYDVQQGEwJVQTENMAsGA1UECAwES3lpdjENMAsG
+          A1UEBwwES3lpdjEQMA4GA1UECgwHc2FuZGJveDESMBAGA1UECwwJdGxzU2VydmVy
+          MTQwMgYDVQQDDCsqLmFwcHMuc2FuZGJveC1tMy4xNTMwLnAxLm9wZW5zaGlmdGFw
+          cHMuY29tMSIwIAYJKoZIhvcNAQkBFhNjZXJ0c0BkZXZlbG9wZXIuY29tMIICIjAN
+          BgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAyZC/vPUQ03oDBP5ExKh9Yhv0vwgQ
+          ytBePPxN9wDSoL3iyayh16U6mtR6OGfRiiV9q+SuA27UwbNyqZmHtmMdKMuxTj3d
+          IZ7gPBPQ7taXi/KMot2/R5DdEFAH5P7yUIUU5VQA9IICzTLIhJjVbvTvwcalrYK+
+          WZrL8KRYUDcMGeYG2kARna399/NfSoV7qyMOKoFvgule4w+K77XbaX9Ov7CL4hf9
+          ckrdFGpTMqQ7a3vYxfgzpg3sMzkdd/gW5mY8nIGhfqgC0dDfUjNYPhOlm7er0IvV
+          p9RQFK1rRpH7NldCGPMzG+FHokMSNHc5ECuCq0XibLm4vjC7gwMpZXXaHhOzcYaj
+          2bJfwTQXBw3QRmtdeas1gSbBKWJOgrIOpzWJWfQnSL5w9O+W9q184Wnc/pV9w4gz
+          SHYLot9Ycqs3XiTsMlMePVNZC3mU4gYibMdlUo8qpMtTtLvVC/dTZI0Uiy/EjR1W
+          0dYYJgCDIg10xerTKAyhkLS0bNNb2ABPaAfc89AV/AcssZhp8TPly6Pm3+rU06ni
+          am3ET1AYgmjdySlHdcZIw1YvxZTbAMrrrWvGciV/59+Lw3/2RinVrnDTciarLB4x
+          0MTmo4qsPrmSJWVqmvTQm1XwbVKQCyanyanwIStoVykQdYmTRepXpNohr24tSbyU
+          G1Gtx3tn02ManK0CAwEAATANBgkqhkiG9w0BAQsFAAOCAgEAMXxNbr6FxMFpenoe
+          vRB4ab9SEu9DNqc4g8x/qso9YZYxnZF/xZMC06XL+v+1S/fQztMRGO9ajDt4jiOS
+          0Z7ZJKRCfMNCiMZmUPwOO8ffRC6QNKe35pQ/8lPW2HBGWSXss1GUFBhi3MV5Rw29
+          3CTIPWHtwRR5nr5CeeLS4MLoXxNn5ciQjs6wLhbyD6kgCNMldinFMjCl8bRg22fA
+          Io2nJsPKrFbE0jKR85oj0uO2weJWb5a8eZzaPXYb8fuFGLsD4L/PpmsFTpg9pMhq
+          fV9TCM1K6km28fApHRoHdHpzlgcw5gECtS8dQ+U5JGanatrUchrqfngfHeAelOLI
+          ftxe8WElfDcPA1DPNyhMAIMcRXql2U3vMsZgGk5+ZuctCrJJj020/hNcy4cZHOqA
+          jToH5vuE+9A1ukZ4HMhHWQ+T08t6S1EjeIofaQNTeW6ynma3dNkudD0ZhWwONdU3
+          ax0p3b5V5URiypnb20SwXt60QQFi1a/zkxnRABAIEZLMNLp5pg0bc5pmUtJ40L7c
+          /1sWoI0vXfIPeUlwCZlbSAtsn0YyKDuKwQoQcdC6Jsk6YNPiXD6q3BR0PJeY3Gwm
+          OCJg0H88LPCqIBfSmIpJVpyQ79CAyQESQXZ17d9z2zlrCic9H07Kgx27vkkUB/RG
+          QOmKGt02tUPtb9m+wGr1zazCMCQ=
+          -----END CERTIFICATE-----
+        key: |
+          -----BEGIN PRIVATE KEY-----
+          MIIJKQIBAAKCAgEAyZC/vPUQ03oDBP5ExKh9Yhv0vwgQytBePPxN9wDSoL3iyayh
+          16U6mtR6OGfRiiV9q+SuA27UwbNyqZmHtmMdKMuxTj3dIZ7gPBPQ7taXi/KMot2/
+          R5DdEFAH5P7yUIUU5VQA9IICzTLIhJjVbvTvwcalrYK+WZrL8KRYUDcMGeYG2kAR
+          na399/NfSoV7qyMOKoFvgule4w+K77XbaX9Ov7CL4hf9ckrdFGpTMqQ7a3vYxfgz
+          pg3sMzkdd/gW5mY8nIGhfqgC0dDfUjNYPhOlm7er0IvVp9RQFK1rRpH7NldCGPMz
+          G+FHokMSNHc5ECuCq0XibLm4vjC7gwMpZXXaHhOzcYaj2bJfwTQXBw3QRmtdeas1
+          gSbBKWJOgrIOpzWJWfQnSL5w9O+W9q184Wnc/pV9w4gzSHYLot9Ycqs3XiTsMlMe
+          PVNZC3mU4gYibMdlUo8qpMtTtLvVC/dTZI0Uiy/EjR1W0dYYJgCDIg10xerTKAyh
+          kLS0bNNb2ABPaAfc89AV/AcssZhp8TPly6Pm3+rU06niam3ET1AYgmjdySlHdcZI
+          w1YvxZTbAMrrrWvGciV/59+Lw3/2RinVrnDTciarLB4x0MTmo4qsPrmSJWVqmvTQ
+          m1XwbVKQCyanyanwIStoVykQdYmTRepXpNohr24tSbyUG1Gtx3tn02ManK0CAwEA
+          AQKCAgAkqT82jxxQWpDSB61aV4r2nT8Wv9DOErgRP5Kuqmek9OSa6dtF7beLEbpp
+          J/jkt4z0BtPfq/jmgk0Iq/QTKFPVZ7cIFBh0VQFT7AbEaiOGQMdzmAGCcsbCgMvu
+          yrAoFQyH6Y+C6WK5D9OIyoOHeuVgyVC5Dl6wzYbqbfniHSEGVOBKMf0CQPNAdfOP
+          ClhD+ExLTt+JYAjyI5GRp/IQbidUljfbF6Hxd8xeOjiHrXdhRVVYLJy4Ry/+4RSL
+          DYScw1ui27ET6Fsa7nKv8MbMA6bLe8y0Ubq6m9M075XjcAnRCG3tO86/82mkCa71
+          +/lVB5TssflM7Tq83QA+BAUzfwv8ucTugyLcYVm+JlidIX/4zjZpGBo+hdMCb4eG
+          36JV3wpyJD9+hdGJNmMrbXxVJ9Oyf81hRfTvtFom8rB2wmHEhTXyjwdOmsm+1MZh
+          NmpOvwuIeoXiQeJuGSlpNdnPrPTJNnprzmyDMvtI94STIUZ3DJJlmJAF0lJxagG5
+          0yjMVV+nzrH2j2UiDl2ruVmu0VlL04IK2CwMx4F0ahLzMIaH0poYbUZNpwqQ2A14
+          wvn5WCPwFScLhqmLG4ergMGznHpVY1y1Y2TFP9wkZo3J0Y4PtywWHPCcSO6HJ7/n
+          KqzwAqjVj/PlpmImP8xmdRwhv8zS/BD1lNl8NDbb9dtHXkXuAQKCAQEA7Jwj5u7e
+          ytUgZkQqHw+6Tnu2upoRanry7B/IOm1SSl1XiSBhk0iQ0RTbP3rV9PC2LMulPoS8
+          hk8y/4N6eeS31XdnQQuzxYEWKtPF6ene5LvZ+Qt5Ypwi9jM9hBe7G5v1jdDIQWBr
+          S67F+pFSzC0kxPrdQRpyBHhKWsLaFDRSNrMCFym2GgqyFVr60Ivc93rFtlT8kVEn
+          hffq6kJL/Wp5CH0Co09L61T6LIQkYd8tkTQzvxB4WlcBvPpdgJ6eNBEcY8Mo7P4s
+          xoh38/cKKOziPcA4g72yA7pozZ0pYz09V6/FbRyZB9HjpSKBuOqx81Th8+beOmS4
+          bSdC2KGqakFJdQKCAQEA2hVoQNZScCwkaP8dqQ8EE57xBHc2sT7RuambuyBauw7G
+          p9A1DqK9+oFhg9VRH4OZbdpMmvzFd0GFPzNDYp8hLY5l8C9z3FqsJcBLQW20g5nY
+          q84ktp58N+XLB50h6PTYDcWsnZZ+mvApq5/MYV/ZF+WlnrxqlDlOMAaGlGzg8C0Y
+          7lGHh4M2aqrASc6Wz/wkPSLA4nhqAJPIJRPHsrcr2faKWEN0Yb5yskEx9pAvvnPU
+          Bmk8Xpx+TWen4PE2wykJ3rHgI+0DE/x9UDfGRpjdVG1HGf4YiU1h2aweW422QIlf
+          rZlIC8Wvvu22EnGcvUCLT5S7GsY29UwZJun04TJnWQKCAQEA2jNsUI29XGSLyoPW
+          LGr+r14bt55ZrU7RM7xjlK44k2fdUBJSqdbj5k1LnBEVuxs5hboQG8WhbmMfbs+7
+          ZSnt9qh0ymGWWe+fl8NQ41TQPzSV4bwZJz1CaLX8ZxLTdLSxESWXZ+MZT+RPo7Hd
+          H3oKTLXk0SMoPsMIHwdOwg82Okd/CAlpbD6s2FDcuPIixv+r0Wgyu3iR8FQfigW1
+          unA0SgWvJxf7tXzaca8zNibxCNWRWwQ/WWCfs71X+UNONkoJWl8iINyOQlCb/pq1
+          /ePnCHd6JtQLlLCV8fibsG9LYNAyS1tyLOn8+88EvpmBnhuLfLhN/J/iDJeGZ+0/
+          EVo/+QKCAQEAw4JHiUDafQeFyL9VVtdIX1KxXcCGPpZDrH+aRkL2NBZGD/G/bxSE
+          3kwZIPgfFvKCnRIEdTnAyW3qx8LsWUCxnMa5Kn9QDi8Xf2yJyulP2F8W+McA8Nra
+          H76ZqoS6/r5p5sbdPhXKAJrnsJ28u1sTI7JULR9bKPDK4JEpG20Upxy26ggbSWhf
+          Y3caldBoMaMo1coPQ7iRx1y1JFA8SkKeRHQaiJBIiMwUxStfYFzZAJOUc/7qCSOg
+          s0IHJcj5wDJNT+EFQQ/dH5DOwxiNX4LxgRvKj0nVs1m1LFB6krdTuT2ukdIF3c/n
+          A3LWNGi4DI4NllWO+6zRXk1PiyxYxX7LWQKCAQAojXMGTltedrT4UlYCU7yv/AX9
+          3Y+g8OVHgNwBs4cVaCiIMeItbTqjRHCvtVkivgUObcrSs3dI8Kc2ApqYmnCahHi4
+          CZjiRk7z2l9Sh7DL3LXGBsLsgH2VvM7Y7GzLFLssKxrDSOG2vs+fKbFOlcqVz3Bx
+          4DsaaXCgVwCe0GWAqHp8KqYpWOQUFaRc5pc7Puzf29PjCCGkzEF90COxAV7Y/dWH
+          UHGmTzwuQC/ZhjFY4+KYNzkF+jt28ORw4ZuBAfbyUifOSgwiDs5cMlF3DZ/zq15m
+          p1y2nQWCESmdast3X7Twz5YvgjIqmlJjLxqZYP8QoDf82ZGIlrIspEMQIfgz
+          -----END PRIVATE KEY-----
+        caCertificate: |
+          -----BEGIN CERTIFICATE-----
+          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
+          PCSIpP2mhJHRTLsxlA==
+          -----END CERTIFICATE-----
+        insecureEdgeTerminationPolicy: Allow
+      wildcardPolicy: None
+      to:
+        kind: "Service"
+        name: ${APP_SERVICE_NAME}
+        weight: null
+    status:
+      ingress: null
+parameters:
+  - name: NAMESPACE
+    displayName: Namespace 
+    description: The Namespace where service must be deployed. 
+    required: true   
+  - name: APP_SERVICE_NAME
+    displayName: APP Service Name 
+    description: The name of the OpenShift Service exposed for the APP.
+    required: true   
+  - name: APP_NAME
+    displayName: Application Name 
+    description: The name of the OpenShift Application  for Groupe of Servoces.
+    required: true 
+  - name: ROUTENAME
+    displayName: ROUTE name 
+    description: Input ROUTENAME name 
+    required: true   
+  - name: HOSTNAME
+    displayName: HOST name 
+    description: Input HOSTNAME name 
+    required: true 
+  - name: PORTNUMBER
+    displayName: PORT NUMBER 
+    description: Input PORT number 
+    required: true 
+
+  
