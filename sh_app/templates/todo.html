@@ -1,0 +1,32 @@
+﻿{% extends "layout.html" %}
+{% block title %}
+Input Data Form
+{% endblock %}
+
+{% block content %}
+      <div class="form-center">
+            <form action = "/todocrt/" method = "POST" enctype="application/json">
+
+                
+                  <div>
+                        <label for="todo_id" id="todo_id_lb">Todo ID:</label>
+                        <input type = "text" id="todo_id" name = "todo_id" size="32"/>
+                        <br><br>
+                        <label for="todo_header_id">Todo header:</label>
+                        <input type = "text" id="todo_header_id" name = "todo_header" size="128" />
+                        <br><br>
+                        <label for="todo_dsc_id">Todo descritpion:</label>
+                        <br>
+                        <textarea rows="5" cols="128" id="todo_dsc_id" name = "todo_dsc"></textarea>
+                        <br><br>
+                        <label for="todo_owner_id">Todo owner:</label>
+                        <input type = "text" id="todo_owner_id" name = "todo_owner" size="32" />
+                        <br><br>
+                        <br><br>
+                  </div>
+
+                  <input id="subnbtn" type = "submit"/>
+
+            </form>  
+      </div>       
+{% endblock %}

@@ -90,8 +90,32 @@ def home():
 def about():
     return render_template("about.html")
 
+@application.route("/todo/")
+def todo():
+    return render_template("todo.html")
 
+@application.route("/todocrt/", methods=["POST"])
+def todo_create():
+    body={}
+    mimetype = request.mimetype
+    print("mimetype = mimetype")
+    label="todo_create"
+    if mimetype == 'application/x-www-form-urlencoded':
+        iterator=iter(request.form.keys())
+        for x in iterator:
+            body[x]=request.form[x]            
+    elif mimetype == 'application/json':
+        body = request.get_json()
+    else:
+        orm = request.data.decode()
 
+    log('Body request' + json.dumps(  body ), label)
+    res={}
+    res["todo_id"]=body["todo_id"]
+    res["todo_header"]=body["todo_header"]
+    res["todo_owner"]=body["todo_owner"]
+    log('Render result ' )
+    return render_template("todo_res.html", data=res)   
 
 
 #===========================================================================
@@ -154,7 +178,55 @@ def srvci():
     
 
 
+@application.route("/api/data", methods=["POST"])
+def postdata():
 
+    label="postdata"
+    """
+        Test http post
+        request: { "typemsg": "warning|error|info", "textmsg": "this is message text"}
+    """
+    
+    l_label='signreport';
+    l_step='start'
 
+    log(l_step, l_label)
+    l_label=l_label + '_' + request.method
 
+    l_req_body_dict={}
+    l_types_of_msg = ( "warning", "error", "info" )
+    res_body_dic={}
 
+ 
+    l_step='getting request body'
+    log(l_step, l_label)
+    body = request.get_json()
+    l_step='Request bidy: ' + json.dumps(  body )
+    log(l_step, l_label)
+    body_dict = dict(body)
+
+    l_step='Check existanse key [typemsg]'
+    log(l_step, l_label)
+    if not 'typemsg' in body_dict:
+        raise InvalidAPIUsageR( "InvalidAPIRequestParams",  "No key [typemsg]", target=l_label,status_code=422, payload = {"code": "NoKey", "description": l_step } )
+    
+    l_step='Check existanse key [textmsg]'
+    if not 'textmsg' in body_dict:
+        raise InvalidAPIUsageR( "InvalidAPIRequestParams",  "No key [textmsg]", target=l_label,status_code=422, payload = {"code": "NoKey", "description": l_step } )
+    
+    l_step='Check  apropreate values in [typemsg]'
+    if not any( body_dict["typemsg"] in  typemsg for typemsg in l_types_of_msg ):
+        raise InvalidAPIUsageR( "InvalidAPIRequestParams",  "No key [typemsg]", target=l_label,status_code=422, payload = {"code": "UnApropreateValue", "description": " must be  only (warning, error, info) " } )
+   
+    l_step="Prepare response OK"
+    log(l_step, l_label)
+
+    res={}
+    res["ok"]=True
+    res["message"]="Request processed"
+    res["origreq"]=body_dict
+
+    l_step="Send response OK: " + json.dumps(  res )
+    log(l_step, l_label)
+
+    return json.dumps(  res ), 200, {'Content-Type':'application/json'}
