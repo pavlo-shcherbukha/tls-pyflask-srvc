@@ -129,7 +129,7 @@ def todo_create():
 # =================================================================================
 @application.route("/api/health", methods=["GET"])
 def health():
-    title="Remote debug demo"
+    title="For TLS demo"
     label="health"
     result={}
     log('Health check', label)
