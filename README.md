@@ -247,35 +247,3 @@ oc create -f secret-github-basicauth.yaml
 
 
 
-
-
-
-
-
-
-## draft comads
-curl -k https://localhost:5000/api/health --cacer C:\PSHDEV\PSH-WorkShops\github-io\tz-000010-flask-tls\tls-self-sign-certs\tz-000001-init\tls-self-sign-certs\step-5\client\ca-crt.pem --verbose
-
-
-
-curl -k https://localhost:8080/api/health  --cacer ./sh_app/tlscert/ca-crt.pem --verbose
-
-
- /etc/pki/tls/certs/ca-bundle.crt
-
-
-cp ~/certificate-trust-examples/Cert-trust-test-ca.pem /usr/share/pki/ca-trust-source/anchors/
-update-ca-trust
-
-
-/opt/app-root/src/sh_app/tlscert/ca-crt.pem
-
-
-cp /opt/app-root/src/sh_app/tlscert/ca-crt.pem /usr/share/pki/ca-trust-source/anchors/
-update-ca-trust
-
-
-
---workers=1 --worker-connections=2000  --bind=0.0.0.0:8080 --access-logfile=- --name=wsgi --keyfile /opt/app-root/src/sh_app/tlscert/server-key.pem --certfile /opt/app-root/src/sh_app/tlscert/server-crt.pem
-
---keyfile /opt/app-root/src/sh_app/tlscert/server-key.pem --certfile /opt/app-root/src/sh_app/tlscert/server-crt.pem
