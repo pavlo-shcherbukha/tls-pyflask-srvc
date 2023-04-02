@@ -1,0 +1,9 @@
+Flask
+gunicorn
+requests
+datetime
+ptvsd 
+debugpy
+pyopenssl
+# flask-talisman
+flask_sslify
